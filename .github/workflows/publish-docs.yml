@@ -1,0 +1,33 @@
+name: Publish Docs 📚
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-docs:
+    runs-on: arc-scale-set
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          
+      - name: install npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: install make 
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install make -y
+
+      - name: install rdme
+        run: npm install -g rdme
+        
+      - name: Publish docs
+        run: make publish-docs
+        env:
+          PLAYHUB_README_API_KEY: ${{ secrets.PLAYHUB_README_API_KEY }}

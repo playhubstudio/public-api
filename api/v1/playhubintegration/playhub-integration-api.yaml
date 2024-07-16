@@ -1,0 +1,416 @@
+openapi: 3.0.3
+info:
+  title: Playhub Integration Adapter API
+  description: This API is used for external integrations with Playhub.
+  version: 1.0.0
+# x-samples-languages: ["curl", "go", "javascript"]
+x-readme:
+  headers:
+    - X-REQUEST-SIGN:
+      description: Request signature
+
+paths:
+  /balance:
+    post:
+      tags:
+        - Balance
+      summary: Get balance
+      description: |
+        Get balance of the user.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BalanceRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BalanceResponse"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        404:
+          description: Requested user/session ID not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /bet:
+    post:
+      tags:
+        - Bet
+      summary: Register Bet
+      description: |
+        Betting callback to the client side. Every time a user places a bet,  
+        we send a request to this endpoint and wait for the answer.  
+
+        Please notice call to this endpoint should be as quick as possible to make 
+          sure player experience is not affected.
+
+        In case we receive 500 response or 5 seconds timeout we will send following refund request.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BetRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BetResponse"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        404:
+          description: Requested user/session ID not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /win:
+    post:
+      tags:
+        - Win
+      summary: Register Win
+      description: |
+        Win callback to the client side. Every time a user wins, or round ended without a win (in this case amount is 0),  
+        we send a request to this endpoint and wait for the answer. Wait time is 5 seconds. 
+
+        Please notice call to this endpoint should be as quick as possible to make 
+        sure player experience is not affected.
+
+        After timeout or any error this request will be retrying in the background until we receive 200 response.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WinRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WinResponse"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        404:
+          description: Requested user/session ID not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /refund:
+    post:
+      tags:
+        - Refund
+      summary: Register Refund
+      description: |
+        Refund callback to the client side. We send refund to the client side in case of Bet 500 error or timeout, also 
+        in case when user cancels the game.
+
+        After timeout or any error this request will be retrying until we receive 200 response.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefundRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RefundResponse"
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        404:
+          description: Requested user/session ID not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        500:
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    BalanceRequest:
+      type: object
+      required:
+        - action
+        - session_id
+      properties:
+        action:
+          type: string
+          description: The action name. Should be 'balance'.
+          enum:
+            - balance
+          example: balance
+        session_id:
+          type: string
+          description: |
+            The Game Session's ID (external). Provided by client via Create New Game request.
+          example: some_external_session_id
+
+    BalanceResponse:
+      type: object
+      required:
+        - balance
+      properties:
+        balance:
+          description: |
+            The user's balance in selected currency units. Currency selected by the client during the 
+            Create New Game call.
+          type: string
+          example: "100.00"
+
+    BetRequest:
+      type: object
+      required:
+        - action
+        - type
+        - session_id
+        - amount
+        - tx_id
+      properties:
+        action:
+          type: string
+          description: The action name. Should be 'bet'.
+          enum:
+            - bet
+          example: bet
+        type:
+          description: |
+            The type of the bet. 'Bet' type means regular bet, 'Free' type means free bet (see Free Rounds section).
+          type: string
+          enum:
+            - bet
+            - free
+          example: bet
+        session_id:
+          type: string
+          description: |
+            The Game Session's ID (external). Provided by client via Create New Game request.
+          example: some_external_session_id
+        amount:
+          description: The amount of the bet in currency units.
+          type: string
+          example: "100.00"
+        tx_id:
+          description: |
+            Unique ID for the bet (internal) on Plahub side. Could be used as idempotency key.
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+    BetResponse:
+      type: object
+      required:
+        - balance
+        - tx_id
+      properties:
+        balance:
+          description: The user's balance in currency units after bet is applied.
+          type: string
+          example: "100.10"
+        tx_id:
+          description: Unique ID for the bet on your side. This is required for further tracking/debugging pusposes.
+          type: string
+          example: "some_external_bet_tx_id"
+    WinRequest:
+      type: object
+      required:
+        - action
+        - type
+        - session_id
+        - amount
+        - tx_id
+      properties:
+        action:
+          type: string
+          description: The action name. Should be 'win'.
+          enum:
+            - win
+          example: win
+        type:
+          description: |
+            The type of the win. 'Win' type means regular bet, 'Free' type means free bet (see Free Rounds section).
+          type: string
+          enum:
+            - win
+            - free
+          example: bet
+        session_id:
+          type: string
+          description: |
+            The Game Session's ID (external). Provided by client via Create New Game request.
+          example: some_external_session_id
+        amount:
+          description: The amount of the bet in currency units.
+          type: string
+          example: "100.00"
+        tx_id:
+          description: |
+            Unique ID for the win (internal) on Plahub side. Could be used as idempotency key.
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+
+    WinResponse:
+      type: object
+      required:
+        - balance
+        - tx_id
+      properties:
+        balance:
+          description: The user's balance in currency units after win is applied.
+          type: string
+          example: "100.10"
+        tx_id:
+          description: Unique ID for the win on your side. This is required for further tracking/debugging pusposes.
+          type: string
+          example: "some_external_win_tx_id"
+
+    RefundRequest:
+      type: object
+      required:
+        - action
+        - session_id
+        - tx_id
+      properties:
+        action:
+          type: string
+          description: The action name. Should be 'refund'.
+          enum:
+            - refund
+          example: refund
+        session_id:
+          type: string
+          description: |
+            The Game Session's ID (external). Provided by client via Create New Game request.
+          example: some_external_session_id
+        tx_id:
+          description: |
+            Unique ID for the bet (internal) on Plahub side for tracking purposes. Could be used as idempotency key.
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+    RefundResponse:
+      type: object
+      required:
+        - balance
+        - tx_id
+      properties:
+        balance:
+          description: The user's balance in currency units after win is applied.
+          type: string
+          example: "100.10"
+        tx_id:
+          description: |
+            Unique ID for the refund  transaction on your side. This is required for further tracking/debugging pusposes.
+          type: string
+          example: "some_external_refund_tx_id"

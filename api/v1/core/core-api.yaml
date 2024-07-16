@@ -1,0 +1,801 @@
+openapi: 3.0.3
+info:
+  title: Playhub Core API
+  version: 1.0.0
+
+servers:
+  - url: https://staging.fastplaynetwork.com/api/v1
+    description: Stage server
+  - url: https://prod.fastplaynetwork.com/api/v1
+    description: Production server
+
+paths:
+  /game-create-new:
+    post:
+      tags:
+        - Game Launcher
+      summary: Create New Game
+      description: |
+        Create new game. This method is used to register a new Game Session on our server and get a URL to the game.  
+        URL to the game contains our game launcher.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNewGameRequest"
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateNewGameResponse"
+
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /game-round-history:
+    post:
+      tags:
+        - Game history
+      summary: Get Game Round History
+      description: |
+        Get game round history. This method is used to request a data for game round history.  
+        Data can contain general round result and additional url where details can be learned.
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GetGameRoundHistoryRequest"
+
+      responses:
+        200:
+          description: Round history data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetGameRoundHistoryResponse"
+
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        404:
+          description: Round history not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /free-rounds:
+    get:
+      tags:
+        - Free Rounds
+      summary: Get Free Rounds
+      description: Get free rounds campaign information
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+        - name: cid
+          in: query
+          required: true
+          description: Client's ID
+          x-go-name: CID
+          schema:
+            type: string
+            format: uuid
+
+        - name: id
+          in: query
+          description: Free rounds campaign ID (internal). One of id or extid must be provided.
+          x-go-name: ID
+          schema:
+            type: string
+            format: uuid
+
+        - name: ext_id
+          in: query
+          description: Free rounds campaign ID (external). One of id or extid must be provided.
+          x-go-name: ExtID
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FreeRoundsResponse"
+
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        404:
+          description: Requested rree rounds campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+    post:
+      tags:
+        - Free Rounds
+      summary: Create Free Rounds
+      description: Create new free rounds campaign
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateFreeRoundsRequest"
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateFreeRoundsResponse"
+
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        409:
+          description: Free rounds campaign already exists
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+    put:
+      tags:
+        - Free Rounds
+      summary: Update Free Rounds
+      description: Update existing free rounds campaign
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateFreeRoundsRequest"
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateFreeRoundsResponse"
+
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        404:
+          description: Free rounds campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /free-rounds/cancel:
+    post:
+      tags:
+        - Free Rounds
+      summary: Cancel Free Rounds
+      description: Cancel existing free rounds campaign
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CancelFreeRoundsRequest"
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CancelFreeRoundsResponse"
+
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        404:
+          description: Free rounds campaign not found
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+  /currencies:
+    get:
+      tags:
+        - Currency
+      summary: Get Currencies Information
+      description: Get Information about supported currencies
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+        - name: cid
+          in: query
+          required: true
+          description: Client's ID
+          x-go-name: CID
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrenciesResponse"
+
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    CreateNewGameRequest:
+      type: object
+      required:
+        - cid
+        - gameid
+        - user
+        - currency
+        - locale
+      properties:
+        cid:
+          description: |
+            Client's ID (internal). It's provided by us and is used to identify the client.
+          type: string
+          format: uuid
+        extcid:
+          description: |
+            External Client's ID (game aggregator or casino). This is your ID, which helps you to identify us. We use  
+            it in all callbacks to you.
+          type: string
+        gameid:
+          description: |
+            Game's ID. See the list of supported games in `Game IDs` section.
+          type: string
+        sessionid:
+          description: |
+            External Client's Session ID (game integrator or casino).This is your Session ID. We use  
+            it in all callbacks to you. Could be missed for a demo game.
+          type: string
+
+        providerid:
+          description: |
+            Provider ID. If you're using `Playhub Integration Adapter` pass `playhub` here.
+          type: string
+          enum:
+            - playhub
+        returnurl:
+          description: Return URL
+          type: string
+        currency:
+          description: Currency code in ISO4217
+          type: string
+        locale:
+          description: Locale code in ISO639-1
+          type: string
+        demo:
+          description: |
+            Demo mode. If true, the game will be launched in demo mode (means no callbacks will be called on your side, 
+            and we use our demo balance for the game). If false, the game will be launched in real mode.
+          type: boolean
+        user:
+          description: User information we show in the game.
+          x-go-type: User
+          $ref: "../common-components.yaml#/components/schemas/User"
+
+    CreateNewGameResponse:
+      type: object
+      required:
+        - game_url
+        - game_session_id
+      properties:
+        game_url:
+          type: string
+        game_session_id:
+          type: string
+          format: uuid
+
+    CurrencyInfo:
+      type: object
+      required:
+        - code
+        - name
+        - symbol
+        - decimal_places
+        - is_crypto
+        - is_virtual
+      properties:
+        code:
+          description: Currency code ISO4217
+          type: string
+        name:
+          description: Currency name
+          type: string
+        symbol:
+          description: Currency symbol
+          type: string
+        decimal_places:
+          description: Number of decimal places
+          type: integer
+          x-go-type: int64
+        is_fractional_for:
+          description: |
+            Currency code in ISO4217 for which this currency is fractional. If null then this currency is not fractional.
+          type: string
+        is_crypto:
+          description: |
+            Is this currency a cryptocurrency. If true then this currency is a cryptocurrency.
+          type: boolean
+        is_virtual:
+          description: |
+            Is this currency a virtual currency. If true then this currency is a virtual currency.
+          type: boolean
+
+    CurrenciesResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/CurrencyInfo"
+
+    FreeRoundsResponse:
+      type: object
+      required:
+        - id
+        - external_id
+        - cid
+        - game_id
+        - currency
+        - quantity
+        - bet_line
+        - valid_from
+      properties:
+        id:
+          description: Free rounds ID (internal).
+          x-go-name: ID
+          type: string
+          format: uuid
+        external_id:
+          description: Free rounds ID (external).
+          x-go-name: ExtID
+          type: string
+
+        cid:
+          description: Client's ID (internal)
+          x-go-name: CID
+          type: string
+          format: uuid
+
+        game_id:
+          description: Game's ID
+          x-go-name: GameID
+          type: string
+
+        user_ids:
+          description: List of player IDs (external). if null then campaign is available for all players.
+          x-go-name: UserIDs
+          type: array
+          items:
+            type: string
+
+        currency:
+          description: Currency code in ISO4217
+          type: string
+
+        quantity:
+          description: Number of free rounds.
+          type: integer
+          x-go-type: int64
+          minimum: 1
+          maximum: 99
+
+        bet_line:
+          description: Number of bet line configured for this game/provider.
+          type: integer
+          x-go-type: int64
+          minimum: 1
+          maximum: 99
+
+        valid_from:
+          description: Start date when free rounds become available.
+          type: string
+          format: date-time
+
+        valid_until:
+          description: End date when free rounds become unavailable.
+          type: string
+          format: date-time
+        deleted_at:
+          description: |
+            Date when free rounds campaign was deleted. If null then campaign is active.
+          type: string
+          format: date-time
+
+    CreateFreeRoundsRequest:
+      type: object
+      required:
+        - cid
+        - external_id
+        - external_cid
+        - game_id
+        - currency
+        - quantity
+        - bet_line
+        - valid_from
+      properties:
+        external_id:
+          description: |
+            Free rounds ID (external). Used as idempotency key. Same ID can be used to create free rounds only once.
+          type: string
+
+        cid:
+          description: Client's ID (internal)
+          type: string
+          format: uuid
+
+        external_cid:
+          description: External Client's ID (game aggregator or casino)
+          type: string
+
+        game_id:
+          description: Game's ID
+          type: string
+
+        provider_id:
+          description: Provider ID.
+          type: string
+
+        user_ids:
+          description: List of player IDs (external). if null then campaign is available for all players.
+          type: array
+          items:
+            type: string
+
+        currency:
+          description: Currency code in ISO4217
+          type: string
+
+        quantity:
+          description: Number of free rounds.
+          type: integer
+          minimum: 1
+          maximum: 99
+
+        bet_line:
+          description: Number of bet line configured for this game/provider.
+          type: integer
+          minimum: 1
+          maximum: 99
+
+        valid_from:
+          description: Start date when free rounds become available.
+          type: string
+          format: date-time
+
+        valid_until:
+          description: |
+            End date when free rounds become unavailable. Could be setup later.
+          type: string
+          format: date-time
+
+    CreateFreeRoundsResponse:
+      type: object
+      required:
+        - id
+        - external_id
+      properties:
+        id:
+          description: Free rounds ID (internal)
+          type: string
+          format: uuid
+
+        external_id:
+          description: Free rounds ID (external). This is provided in the request.
+          type: string
+
+    UpdateFreeRoundsRequest:
+      type: object
+      required:
+        - cid
+      properties:
+        id:
+          description: |
+            Free rounds ID (internal). Used as idempotency key if present. One of id or external_id must be provided.
+          type: string
+          format: uuid
+        external_id:
+          description: |
+            Free rounds ID (external). Used as idempotency key if present. One of id or external_id must be provided.
+          type: string
+
+        cid:
+          description: Client's ID (internal)
+          type: string
+          format: uuid
+
+        user_ids:
+          description: List of player IDs. if null then campaign is available for all players.
+          type: array
+          items:
+            type: string
+
+        valid_until:
+          description: |
+            End date when free rounds become unavailable. Could be setup later.
+          type: string
+          format: date-time
+
+    UpdateFreeRoundsResponse:
+      type: object
+      required:
+        - id
+        - external_id
+      properties:
+        id:
+          description: Free rounds ID (internal)
+          type: string
+          format: uuid
+
+        external_id:
+          description: Free rounds ID (external). It always provided on create request.
+          type: string
+
+    CancelFreeRoundsRequest:
+      type: object
+      required:
+        - cid
+      properties:
+        id:
+          description: |
+            Free rounds ID (internal). Used as idempotency key. One of id or external_id must be provided.
+          type: string
+          format: uuid
+
+        external_id:
+          description: |
+            Free rounds ID (external). Used as idempotency key. One of id or external_id must be provided.
+          type: string
+
+        cid:
+          description: Client's ID (internal)
+          type: string
+          format: uuid
+
+    CancelFreeRoundsResponse:
+      type: object
+      required:
+        - id
+        - external_id
+      properties:
+        id:
+          description: Free rounds ID (internal).
+          type: string
+          format: uuid
+
+        external_id:
+          description: Free rounds ID (external). It always provided on create request.
+          type: string
+
+    GetGameRoundHistoryRequest:
+      type: object
+      required:
+        - game_id
+        - round_id
+        - user_id
+      properties:
+        game_id:
+          description: |
+            Game's ID. See the list of supported games in `Game IDs` section.
+          x-go-name: GameID
+          type: string
+        round_id:
+          description: Round ID which was played in one of the Game ID sessions
+          x-go-name: RoundID
+          type: string
+          format: uuid
+        user_id:
+          description: |
+            External User ID who played the round
+          x-go-name: UserID
+          type: string
+
+    GetGameRoundHistoryResponse:
+      type: object
+      required:
+        - round_id
+        - game_session_id
+        - client_hash
+        - bet_amount
+        - currency
+        - target_multiplier
+        - result
+        - payout_amount
+        - payout_multiplier
+        - user_balance
+        - user_bonus_balance
+        - cash_out_at
+      properties:
+        round_id:
+          x-go-name: RoundID
+          type: string
+          format: uuid
+        game_session_id:
+          x-go-name: GameSessionID
+          type: string
+          format: uuid
+        client_hash:
+          x-go-name: ClientHash
+          type: string
+        round_url:
+          description: |
+            URL where game round history is rendered by game (if supported by game)
+          type: string
+          format: url
+        bet_amount:
+          type: string
+        currency:
+          type: string
+        target_multiplier:
+          type: string
+        result:
+          type: string
+        payout_amount:
+          type: string
+        payout_multiplier:
+          type: string
+        user_balance:
+          type: string
+        user_bonus_balance:
+          type: string
+        cash_out_at:
+          type: string
