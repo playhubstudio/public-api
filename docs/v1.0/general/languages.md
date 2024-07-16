@@ -7,49 +7,61 @@ hidden: false
 slug: general-languages
 ---
 
-We support languages based on ISO639-1 standard. The following locales are supported:
+# Supported Languages
 
-| Locale | 
-| ------ | 
-| cs_cz |  
-| da_dk |
-| de_de |
-| el_gr |
-| en_gb |
-| en_sc |
-| en_us |
-| es_co |
-| es_es |
-| es_mx |
-| et_ee |
-| fi_fi |
-| fr_be |
-| fr_fr |
-| hr_hr |
-| hu_hu |
-| id_id |
-| it_it |
-| ja_jp |
-| km_kh |
-| ko_kr |
-| lt_lt |
-| lv_lv |
-| ms_my |
-| nb_no |
-| nl_be |
-| nl_nl |
-| no_no |
-| pl_pl |
-| pt_br |
-| pt_pt |
-| ro_ro |
-| ru_ru |
-| sk_sk |
-| sv_se |
-| th_th |
-| tr_tr |
-| uk_ua |
-| vi_vn |
-| zh_cn |
-| zh_tw |
-|  |
+We support languages based on the ISO 639-1 standard. The following locales are supported, structured by region and including the corresponding country names:
+
+## Europe
+
+- **Czech (Czech Republic)**: cs_CZ
+- **Danish (Denmark)**: da_DK
+- **German (Germany)**: de_DE
+- **Greek (Greece)**: el_GR
+- **English (United Kingdom)**: en_GB
+- **Estonian (Estonia)**: et_EE
+- **Finnish (Finland)**: fi_FI
+- **French (Belgium)**: fr_BE
+- **French (France)**: fr_FR
+- **Croatian (Croatia)**: hr_HR
+- **Hungarian (Hungary)**: hu_HU
+- **Italian (Italy)**: it_IT
+- **Lithuanian (Lithuania)**: lt_LT
+- **Latvian (Latvia)**: lv_LV
+- **Dutch (Belgium)**: nl_BE
+- **Dutch (Netherlands)**: nl_NL
+- **Norwegian Bokmål (Norway)**: nb_NO
+- **Norwegian (Norway)**: no_NO
+- **Polish (Poland)**: pl_PL
+- **Portuguese (Portugal)**: pt_PT
+- **Romanian (Romania)**: ro_RO
+- **Russian (Russia)**: ru_RU
+- **Slovak (Slovakia)**: sk_SK
+- **Swedish (Sweden)**: sv_SE
+- **Turkish (Turkey)**: tr_TR
+- **Ukrainian (Ukraine)**: uk_UA
+
+## Americas
+
+- **English (United States)**: en_US
+- **Spanish (Colombia)**: es_CO
+- **Spanish (Spain)**: es_ES
+- **Spanish (Mexico)**: es_MX
+- **Portuguese (Brazil)**: pt_BR
+
+## Asia
+
+- **Indonesian (Indonesia)**: id_ID
+- **Japanese (Japan)**: ja_JP
+- **Khmer (Cambodia)**: km_KH
+- **Korean (South Korea)**: ko_KR
+- **Malay (Malaysia)**: ms_MY
+- **Thai (Thailand)**: th_TH
+- **Vietnamese (Vietnam)**: vi_VN
+- **Chinese Simplified (China)**: zh_CN
+- **Chinese Traditional (Taiwan)**: zh_TW
+
+## Other Regions
+
+- **English (Scotland)**: en_SC
+
+**Note**: Based on requests from operators, additional localizations can be added. The estimated time for adding new localizations is between 1 to 3 months.

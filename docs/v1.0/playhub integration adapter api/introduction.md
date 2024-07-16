@@ -7,10 +7,15 @@ hidden: false
 slug: playhub-integration-adapter-intro
 ---
 
-All requests from our platform to your should be processed in idempotent way. 
-This means that if we send the same request multiple times, the result should be the same as if we sent the request only once. 
-This is important to avoid any issues with your system in case of network issues or other problems.
+## Idempotency Requirement
 
-we use the following IPs to access your endpoints:
-staging environment: 34.76.77.205
-production environment: 34.140.75.241
+All requests from our platform to yours should be processed in an idempotent way. This means that if we send the same request multiple times, the result should be the same as if we sent the request only once. This is crucial to avoid any issues with your system in case of network problems or other issues.
+
+## IP Addresses
+
+We use the following IPs to access your endpoints:
+
+- **Staging Environment**: 34.76.77.205
+- **Production Environment**: 34.140.75.241
+
+By ensuring idempotency and allowing access from these IP addresses, you can maintain the reliability and stability of the integration.
