@@ -7,6 +7,8 @@ hidden: false
 slug: general-currencies
 ---
 
+# Supported Currencies
+
 We support a list of currencies, which includes a subset of ISO 4217 currencies as well as cryptocurrencies. 
 
 You can access the list of supported currencies through the following API:
