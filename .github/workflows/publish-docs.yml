@@ -7,24 +7,24 @@ on:
 
 jobs:
   publish-docs:
-   runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
           
-      - name: install npm
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '14'
 
-      - name: install make 
+      - name: Install make 
         run: |
           sudo apt-get update -y
           sudo apt-get install make -y
 
-      - name: install rdme
+      - name: Install rdme
         run: npm install -g rdme
         
       - name: Publish docs
