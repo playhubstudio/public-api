@@ -22,8 +22,10 @@ https://<game_provider_base_url>?<query_parameters>
 
 ## Base URLs
 
-- **Staging Environment**: `https://staging.fastplaynetwork.com/`
-- **Production Environment**: `https://prod.fastplaynetwork.com/`
+- **Staging Environment**: `https://staging.fastplaynetwork.com/games/<gameid>`
+- **Production Environment**: `https://prod.fastplaynetwork.com/games/<gameid>`
+
+Example: https://staging.fastplaynetwork.com/games/ph_limbo_97/index.html?
 
 ## Requirements
 
@@ -40,8 +42,7 @@ These parameters are essential for the game launcher to function correctly:
 #### Example
 
 ```
-https://staging.fastplaynetwork.com/index.html
-?game=ph_limbo_97
+https://staging.fastplaynetwork.com/games/ph_limbo_97/index.html?
 &locale=en-gb
 &currency=EUR
 ```
