@@ -42,7 +42,7 @@ These parameters are crucial for the game launcher to operate:
 #### Example
 
 ```
-https://staging.fastplaynetwork.com/games/ph_limbo_97/start.html?
+https://staging.fastplaynetwork.com/games/ph_limbo_97/?
 &locale=en-us
 &currency=USD
 ```
