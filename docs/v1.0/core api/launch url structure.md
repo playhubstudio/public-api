@@ -22,8 +22,12 @@ https://<game_provider_base_url>?<query_parameters>
 
 ## Base URLs
 
-- **Staging Environment**: `https://staging.fastplaynetwork.com/games/<gameid>`
-- **Production Environment**: `https://prod.fastplaynetwork.com/games/<gameid>`
+- **Staging Environment**: `https://staging.fastplaynetwork.com/`
+- **Production Environment**: `https://prod.fastplaynetwork.com/`
+
+## Launcher URL:
+- **Staging Environment**: `https://staging.fastplaynetwork.com/games/<gameid>/index.html?`
+- **Production Environment**: `https://prod.fastplaynetwork.com/games/<gameid>/index.html?`
 
 Example: https://staging.fastplaynetwork.com/games/ph_limbo_97/index.html?
 
