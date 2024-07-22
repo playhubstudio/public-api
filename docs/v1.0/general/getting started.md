@@ -36,6 +36,7 @@ To start using our Public API, you need to register an account on our portal (or
 - Client ID: This is your unique identifier in our system, which identifies your system as our client.
 - API Token Key: This token key is used for all requests to our Public API. See the [Authentication](general-auth) section for more details. Please handle this token key securely and do not expose it to the public; otherwise, the whole integration could be compromised and blocked.
 - Callback Token Key: This token key is used in all callback requests from our platform to your system.
+- Legal bets table (if free rounds is requested). See the [Legal Bets](core-free-rounds-legal-bet).  
 
 From your side, we require the following details:
 
