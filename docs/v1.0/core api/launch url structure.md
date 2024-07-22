@@ -26,10 +26,10 @@ https://<game_provider_base_url>?<query_parameters>
 - **Production Environment**: `https://prod.fastplaynetwork.com`
 
 ## Launcher URL:
-- **Staging Environment**: `https://staging.fastplaynetwork.com/games/<game_id>/start.html?`
-- **Production Environment**: `https://prod.fastplaynetwork.com/games/<game_id>/start.html?`
+- **Staging Environment**: `https://staging.fastplaynetwork.com/games/<game_id>/?`
+- **Production Environment**: `https://prod.fastplaynetwork.com/games/<game_id>/?`
 
-Example: `https://staging.fastplaynetwork.com/games/ph_limbo_97/start.html?`
+Example: `https://staging.fastplaynetwork.com/games/ph_limbo_97/?`
 
 ### Required Parameters
 
