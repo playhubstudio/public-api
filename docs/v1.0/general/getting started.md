@@ -48,7 +48,7 @@ From your side, we require the following details:
 All URLs should support HTTPS and be accessible from our servers. We will use the `POST` method to call your endpoints.  
 For more details on callbacks, see [Playhub Integration Adapter API](playhub-integration-adapter-intro).
 
-Additionally, if you require, we can set up whitelisting for your platform. Please attach a list of IP addresses that should be whitelisted.
+Additionally, if you require, we can set up whitelisting for your platform. Please share a list of IP addresses that should be whitelisted via the integration Skype chat or via email: integration@playhub.studio.
 
 From our side, we use the following IPs to call your endpoints:  
 Staging environment: 34.76.77.205  
