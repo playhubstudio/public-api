@@ -84,7 +84,7 @@ type BetRequest struct {
 	// SessionId The Game Session's ID (external). Provided by client via Create New Game request.
 	SessionId string `json:"session_id"`
 
-	// TxId Unique ID for the bet (internal) on Plahub side. Could be used as idempotency key.
+	// TxId Unique ID for the bet (internal) on Playhub side. Could be used as idempotency key.
 	TxId openapi_types.UUID `json:"tx_id"`
 
 	// Type The type of the bet. 'Bet' type means regular bet, 'Free' type means free bet (see Free Rounds section).
@@ -114,7 +114,7 @@ type RefundRequest struct {
 	// SessionId The Game Session's ID (external). Provided by client via Create New Game request.
 	SessionId string `json:"session_id"`
 
-	// TxId Unique ID for the bet (internal) on Plahub side for tracking purposes. Could be used as idempotency key.
+	// TxId Unique ID for the bet (internal) on Playhub side for tracking purposes. Could be used as idempotency key.
 	TxId openapi_types.UUID `json:"tx_id"`
 }
 
@@ -141,7 +141,7 @@ type WinRequest struct {
 	// SessionId The Game Session's ID (external). Provided by client via Create New Game request.
 	SessionId string `json:"session_id"`
 
-	// TxId Unique ID for the win (internal) on Plahub side. Could be used as idempotency key.
+	// TxId Unique ID for the win (internal) on Playhub side. Could be used as idempotency key.
 	TxId openapi_types.UUID `json:"tx_id"`
 
 	// Type The type of the win. 'Win' type means regular bet, 'Free' type means free bet (see Free Rounds section).

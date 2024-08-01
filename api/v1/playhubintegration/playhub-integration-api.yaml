@@ -303,7 +303,8 @@ components:
           example: "100.00"
         tx_id:
           description: |
-            Unique ID for the bet (internal) on Plahub side. Could be used as idempotency key.
+            Unique ID for the bet (internal) on Playhub side.
+            Could be used as idempotency key (within a single round).
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
@@ -355,7 +356,8 @@ components:
           example: "100.00"
         tx_id:
           description: |
-            Unique ID for the win (internal) on Plahub side. Could be used as idempotency key.
+            Unique ID for the win (internal) on Playhub side. 
+            Could be used as idempotency key (within a single round).
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
@@ -395,7 +397,8 @@ components:
           example: some_external_session_id
         tx_id:
           description: |
-            Unique ID for the bet (internal) on Plahub side for tracking purposes. Could be used as idempotency key.
+            Unique ID for the bet (internal) on Playhub side for tracking purposes. 
+            Could be used as idempotency key (within a single transaction).
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
