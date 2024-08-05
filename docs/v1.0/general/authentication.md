@@ -37,11 +37,27 @@ return hex.EncodeToString(hash.Sum(nil))
 **Sign example for GET request in Go:**
 ```go
 func Sign(queryParams url.Values, token string) string {
-  reqJSON, err := json.Marshal(queryParams)
+  reqJSON, err := URLValuesFlatteredToJSON(params)
   _ = err
 	hash := hmac.New(sha256.New, []byte(token))
 	hash.Write([]byte(reqJSON))
 return hex.EncodeToString(hash.Sum(nil))
+}
+
+func URLValuesFlatteredToJSON(values url.Values) ([]byte, error) {
+	flattened := make(map[string]string)
+	for key, vals := range values {
+		if len(vals) > 0 {
+			flattened[key] = vals[0]
+		}
+	}
+
+	jsonData, err := json.Marshal(flattened)
+	if err != nil {
+		return nil, err
+	}
+
+	return jsonData, nil
 }
 ```
 
