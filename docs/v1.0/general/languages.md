@@ -60,8 +60,8 @@ We support languages based on the ISO 639-1 standard. The following locales are 
 - **Chinese Simplified (China)**: zh_CN
 - **Chinese Traditional (Taiwan)**: zh_TW
 
-## Other Regions
+## Other Languages
 
-- **English (Scotland)**: en_SC
+- **English (Social Casino)**: en_SC
 
 **Note**: Based on requests from operators, additional localizations can be added. The estimated time for adding new localizations is between 1 to 3 months.
