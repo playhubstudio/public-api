@@ -7,8 +7,13 @@ hidden: false
 slug: playhub-integration-adapter-intro
 ---
 
-## Errors processing. Refund policy.
+## Round, transaction and money processing.
+Every request through the Playhub Integration Adapter API contains transaction ID (tx_id) which is a unique for every round.
+So all money processing requests/transactions within a single round is processed with the same tx_id.
+It means you can use it to identify all transactions related to a single round.
 
+
+## Errors processing. Refund policy.
 All error codes except 200 (OK) are considered as errors. Every bet request with non 200 (OK) response will be refunded.
 
 ## Idempotency Requirement
