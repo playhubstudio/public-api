@@ -608,12 +608,14 @@ components:
         quantity:
           description: Number of free rounds.
           type: integer
+          format: int32
           minimum: 1
           maximum: 99
 
         bet_line:
           description: Number of bet line configured for this game/provider.
           type: integer
+          format: int32
           minimum: 1
           maximum: 99
 
