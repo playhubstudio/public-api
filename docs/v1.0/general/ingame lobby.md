@@ -1,0 +1,21 @@
+---
+title: In game Lobby
+excerpt: Inbuilt game Lobby.
+category: 65b8f16eb5f2930078659f93
+order: 6
+hidden: false
+slug: in-game-lobby
+---
+
+We allow users to switch between different games in the same lobby.  
+This is useful for users who want to play different games without having to leave the lobby.
+
+## How it works and how to support this feature on interation's side
+
+When we switch a game we create a new game session and the user is moved to the new game session.  
+Only 2 parameters are changed: `game ID` and `game session ID`.
+All other session parameters we keep the same.  
+To support this functionality on your side you need to make sure that you can handle multiple game sessions for the same user.
+
+
+
