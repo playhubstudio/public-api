@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Playhub Integration Adapter API
   description: This API is used for external integrations with Playhub.
-  version: 1.0.0
+  version: 1.1.0
 # x-samples-languages: ["curl", "go", "javascript"]
 x-readme:
   headers:
@@ -310,6 +310,13 @@ components:
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+        frc_id:
+          description: |
+            Free Rounds Config ID (internal) on Playhub side.
+            This field is provided only for Free Rounds (where type ='free').
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
     BetResponse:
       type: object
       required:
@@ -360,6 +367,13 @@ components:
           description: |
             Unique ID for the win (internal) on Playhub side. 
             Could be used as idempotency key (within a single round).
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+        frc_id:
+          description: |
+            Free Rounds Config ID (internal) on Playhub side.
+            This field is provided only for Free Rounds (where type ='free').
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
