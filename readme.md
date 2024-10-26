@@ -2,11 +2,17 @@
 
 Provides a public API for the game platform and also related public docs.
 
-## How to generate for Go
+##  How to generate for Go 
 
 ```bash
 make gen-api
 ```
+
+## How to version
+We use semver versioning for our API `major.minor.patch`.  
+When we make breaking changes, we increase the major version.  
+When we add new features in a backwards-compatible manner, we increase the minor version.  
+When we make backwards-compatible bug fixes, we increase the patch version.
 
 # Docs
 
@@ -54,3 +60,9 @@ then add this information to your pages, so they will be published to the correc
 
 https://playhubapi.readme.io/reference/general-getting-started
 
+## How to version
+
+We use semver version without patch version for our docs `major.minor`.  
+When we make breaking changes, we increase the major version.  
+When we add new features in a backwards-compatible manner, we increase the minor version.
+Every new version of the API should have a new version of the docs.
