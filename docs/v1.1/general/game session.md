@@ -1,7 +1,7 @@
 ---
 title: Game Session
 excerpt: How the Game Session works.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 2
 hidden: false
 slug: general-game-session

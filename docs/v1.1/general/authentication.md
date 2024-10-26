@@ -1,7 +1,7 @@
 ---
 title: Authentication
 excerpt: Authentication for our Public APIs requests.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 1
 hidden: false
 slug: general-auth

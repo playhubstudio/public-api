@@ -1,7 +1,7 @@
 ---
 title: In game Lobby
 excerpt: Inbuilt game Lobby.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 6
 hidden: false
 slug: in-game-lobby

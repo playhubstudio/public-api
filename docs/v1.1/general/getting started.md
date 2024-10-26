@@ -1,7 +1,7 @@
 ---
 title: Getting started
 excerpt: First steps in integration process.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 0
 hidden: false
 slug: general-getting-started

@@ -1,7 +1,7 @@
 ---
 title: Launch URL
 excerpt: Launch URL structure and options.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea2
 order: -1
 hidden: false
 slug: core-launch-url-structure

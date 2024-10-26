@@ -1,0 +1,64 @@
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - message
+        - details
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+
+    BetIsAlreadyActiveError:
+      allOf:
+        - $ref: "#/components/schemas/ErrorResponse"
+
+    UserBalance:
+      type: object
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          description: The amount of balance in currency cents.
+          type: integer
+          x-go-type: int64
+        currency:
+          description: The currency code in ISO4217.
+          type: string
+    GameSession:
+      type: object
+      required:
+        - game_url
+      properties:
+        game_url:
+          type: string
+
+    User:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: User's ID (external)
+          type: string
+        firstname:
+          type: string
+        lastname:
+          type: string
+        nickname:
+          type: string
+        country:
+          description: Country code ISO 3166-1
+          type: string
+
+    GameID:
+      type: string
+      enum:
+        - check
+        - crash
+        - crashm            |
+        - ph_slimbo_97
+        - ph_moneyrocket_97

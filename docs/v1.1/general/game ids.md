@@ -1,7 +1,7 @@
 ---
 title: Game IDs
 excerpt: List of supported games with IDs.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 3
 hidden: false
 slug: general-game-ids

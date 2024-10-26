@@ -1,7 +1,7 @@
 ---
 title: Legal bets
 excerpt: Legal bets term, setup and values.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea2
 order: -1
 hidden: false
 slug: core-free-rounds-legal-bet

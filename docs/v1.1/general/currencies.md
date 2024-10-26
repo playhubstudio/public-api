@@ -1,7 +1,7 @@
 ---
 title: Currencies
 excerpt: Supported currencies in our Public API requests and Games.
-category: 671b459dfe48cf0030150eab
+category: 671b459dfe48cf0030150ea1
 order: 4
 hidden: false
 slug: general-currencies
