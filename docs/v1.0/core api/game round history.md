@@ -1,7 +1,7 @@
 ---
 title: Game round history
 excerpt: Game round history structure and options.
-category: 65bc99b3a8f20d00395a35e7
+category: 671f23b876c4fe00181ced4b
 order: -1
 hidden: true
 slug: core-game-round-history-structure

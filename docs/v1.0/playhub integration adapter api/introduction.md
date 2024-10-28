@@ -1,7 +1,7 @@
 ---
 title: Introduction
 excerpt: Playhub Integration Adapter Introduction.
-category: 65bc99c69969910010b1426c
+category: 671f23bd5e2e790010cf4879
 order: -1
 hidden: false
 slug: playhub-integration-adapter-intro

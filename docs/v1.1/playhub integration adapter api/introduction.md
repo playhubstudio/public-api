@@ -1,7 +1,7 @@
 ---
 title: Introduction
 excerpt: Playhub Integration Adapter Introduction.
-category: 671b459dfe48cf0030150ea3
+category: 671f28042b66d5006370115e
 order: -1
 hidden: false
 slug: playhub-integration-adapter-intro
@@ -19,6 +19,10 @@ All error codes except 200 (OK) are considered as errors. Every bet request with
 ## Idempotency Requirement
 
 All requests from our platform to yours should be processed in an idempotent way. This means that if we send the same request multiple times, the result should be the same as if we sent the request only once. This is crucial to avoid any issues with your system in case of network problems or other issues.
+
+## Free rounds
+
+When you receive a request with `isFree` parameter in additional we send `frc_id` field which is related to free rounds configuration.
 
 ## IP Addresses
 
