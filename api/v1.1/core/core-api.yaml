@@ -623,7 +623,11 @@ components:
           maximum: 99
 
         valid_from:
-          description: Start date when free rounds become available. ISO 8601.
+          description: |
+            Start date when free rounds become available. ISO 8601. This should be in future.
+            It's not possible to create Free Rounds campaign in the past. If you want to create a campaign "from now",
+            just add a few seconds to the current time. Creation process is synchronous, so make sure that under heavy load 
+            our server could process this request for a few seconds.
           type: string
           format: date-time
           example: "2021-01-01T00:00:00Z"
