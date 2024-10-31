@@ -547,19 +547,22 @@ components:
           maximum: 99
 
         valid_from:
-          description: Start date when free rounds become available.
+          description: Start date when free rounds become available. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
 
         valid_until:
-          description: End date when free rounds become unavailable.
+          description: End date when free rounds become unavailable. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
         deleted_at:
           description: |
-            Date when free rounds campaign was deleted. If null then campaign is active.
+            Date when free rounds campaign was deleted. If null then campaign is active. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
 
     CreateFreeRoundsRequest:
       type: object
@@ -620,15 +623,17 @@ components:
           maximum: 99
 
         valid_from:
-          description: Start date when free rounds become available.
+          description: Start date when free rounds become available. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
 
         valid_until:
           description: |
-            End date when free rounds become unavailable. Could be setup later.
+            End date when free rounds become unavailable. Could be setup later. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
 
     CreateFreeRoundsResponse:
       type: object
@@ -673,9 +678,10 @@ components:
 
         valid_until:
           description: |
-            End date when free rounds become unavailable. Could be setup later.
+            End date when free rounds become unavailable. Could be setup later. ISO 8601.
           type: string
           format: date-time
+          example: "2021-01-01T00:00:00Z"
 
     UpdateFreeRoundsResponse:
       type: object
