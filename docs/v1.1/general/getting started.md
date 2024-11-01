@@ -43,10 +43,13 @@ From your side, we require the following details:
 - URL for `Get Balance` endpoint: This endpoint should return the current user's balance in your system. We will use this endpoint to get the user's balance before launching a game.
 - URL for `Bet` endpoint: This endpoint should be called when a user places a bet in our game. We will call this endpoint when a user places a bet in our game.
 - URL for `Win` endpoint: This endpoint should be called when a user wins in our game. We will call this endpoint when a user wins in our game.
-- URL for `Refund` endpoint: This endpoint should be called when a user is refunded in our game. We will call this endpoint when a user is refunded in our game.
+- URL for `Refund` endpoint: This endpoint should be called when a user is refunded in our game. We will call this endpoint when a user is refunded in our game.  
+
+
 
 All URLs should support HTTPS and be accessible from our servers. We will use the `POST` method to call your endpoints.  
-For more details on callbacks, see [Playhub Integration Adapter API](playhub-integration-adapter-intro).
+For more details on callbacks, see [Playhub Integration Adapter API](playhub-integration-adapter-intro). Please note that Open API specification provides different endpoints for 
+different requests, but depends on your needs we could use a single endpoint for all requests. Just make sure that in this case you need to skip Open API specification endpoints list and use your own you provided with us.
 
 Additionally, if you require, we can set up whitelisting for your platform. Please share a list of IP addresses that should be whitelisted via the integration Skype chat or via email: integration@playhub.studio.
 
