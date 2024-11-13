@@ -596,7 +596,8 @@ components:
           type: string
 
         provider_id:
-          description: Provider ID.
+          description: |
+            Provider ID. If you're using `Playhub Integration Adapter` pass `playhub` here.
           type: string
 
         user_ids:
