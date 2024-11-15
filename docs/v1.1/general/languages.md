@@ -9,7 +9,9 @@ slug: general-languages
 
 # Supported Languages
 
-We support languages based on the ISO 639-1 standard. The following locales are supported, structured by region and including the corresponding country names:
+We support languages based on the ISO 639-1 standard. 
+We use locales (ISO 3166-1) in our Public API requests and Games.  Please send locale code in lowercase e.g. cs_cz, en_us, es_es, etc...  
+The following languages  are supported, structured by region and including the corresponding country names:
 
 ## Europe
 
