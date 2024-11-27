@@ -296,6 +296,7 @@ components:
         type:
           description: |
             The type of the bet. 'Bet' type means regular bet, 'Free' type means free bet (see Free Rounds section).
+            In case of "free" type, the real amount on your side should not be changed.
           type: string
           enum:
             - bet
@@ -320,7 +321,7 @@ components:
         frc_id:
           description: |
             Free Rounds Config ID (internal) on Playhub side.
-            This field is provided only for Free Rounds (where type ='free').
+            This field is provided only for Free Rounds (where type ='free') and during Free Rounds finalization.
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
@@ -356,6 +357,7 @@ components:
         type:
           description: |
             The type of the win. 'Win' type means regular bet, 'Free' type means free bet (see Free Rounds section).
+            In case of "free" type, the real amount on your side should not be changed.
           type: string
           enum:
             - win
@@ -380,7 +382,7 @@ components:
         frc_id:
           description: |
             Free Rounds Config ID (internal) on Playhub side.
-            This field is provided only for Free Rounds (where type ='free').
+            This field is provided only for Free Rounds (where type ='free') and during Free Rounds finalization.
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
