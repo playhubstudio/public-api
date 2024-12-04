@@ -1,6 +1,8 @@
 module github.com/playhubstudio/public-api
 
-go 1.21.5
+go 1.22.2
+
+toolchain go1.23.1
 
 require (
 	github.com/getkin/kin-openapi v0.126.0

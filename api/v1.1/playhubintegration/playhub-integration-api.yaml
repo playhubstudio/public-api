@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Playhub Integration Adapter API
   description: This API is used for external integrations with Playhub.
-  version: 1.1.0
+  version: 1.1.1
 
 servers:
   - url: https://your-server-base-url
@@ -286,6 +286,7 @@ components:
         - session_id
         - amount
         - tx_id
+        - round_id
       properties:
         action:
           type: string
@@ -318,6 +319,12 @@ components:
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+        round_id:
+          description: |
+            Game's round ID. Non unique, could be the same for different games.
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
         frc_id:
           description: |
             Free Rounds Config ID (internal) on Playhub side.
@@ -347,6 +354,7 @@ components:
         - session_id
         - amount
         - tx_id
+        - round_id
       properties:
         action:
           type: string
@@ -379,6 +387,12 @@ components:
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+        round_id:
+          description: |
+            Game's round ID. Non unique, could be the same for different games.
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
         frc_id:
           description: |
             Free Rounds Config ID (internal) on Playhub side.
@@ -408,6 +422,7 @@ components:
         - action
         - session_id
         - tx_id
+        - orig_tx_id
       properties:
         action:
           type: string
@@ -422,8 +437,15 @@ components:
           example: some_external_session_id
         tx_id:
           description: |
-            Unique ID for the bet (internal) on Playhub side for tracking purposes. 
-            Could be used as idempotency key (within a single transaction).
+            Unique ID for the refund (internal) on Playhub side. 
+            Could be used as idempotency key (within a single round).
+          type: string
+          format: uuid
+          example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
+        orig_tx_id:
+          description: |
+            Original transaction ID (internal) on Playhub side (bet or win). 
+            This is the ID of the transaction that should be refunded.
           type: string
           format: uuid
           example: "c27ccade-5a45-4157-a85f-7d023a689ea5"
@@ -439,6 +461,6 @@ components:
           example: "100.10"
         tx_id:
           description: |
-            Unique ID for the refund  transaction on your side. This is required for further tracking/debugging pusposes.
+            Unique ID for the refund transaction on your side. This is required for further tracking/debugging pusposes.
           type: string
           example: "some_external_refund_tx_id"
