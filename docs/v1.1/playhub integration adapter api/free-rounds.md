@@ -19,5 +19,5 @@ In every request from our PHIA (Playhub Integration Adapter) we send "type" para
 
 # Free rounds finalization
 
-When free rounds are over on our side we send a request to finalize free rounds ( not type is not "free" anymore). In this request we send all wins from the bonus balance. You need to transfer this amount to the main balance and return the new balance to the PHIA.
+When free rounds are over on our side we send a request to finalize free rounds ( notice that type is not "free" anymore). In this request we send all wins from the bonus balance. You need to transfer this amount to the main balance and return the new balance to the PHIA. In this case we add `frc_id` parameter to the request to identify the free rounds session. This means real money transaction and you need to process it as a real money transaction.
 
