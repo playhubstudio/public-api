@@ -12,9 +12,11 @@ slug: playhub-integration-adapter-intro
 To start integration with Playhub, you need to provide us with your endpoints information. It might be single endpoint for all requests or different endpoints for different requests. We support HTTPS protocol only.
 
 # Round, transaction and money processing.
-Every request through the Playhub Integration Adapter API contains transaction ID (tx_id) which is a unique for every round.
-So all money processing requests/transactions within a single round is processed with the same tx_id.
-It means you can use it to identify all transactions related to a single round.
+Every request through the Playhub Integration Adapter API contains transaction ID (`tx_id`) and round ID (`round_id`).
+All transactions from the same round (`bet`, `win`, `refund`, etc.) have the same round_id but might differ in `tx_id`. `tx_id` is mostly used as idempotency key for requests, means
+same `bet` request with same `tx_id` should be processed only once.
+Also please note that `round_id` might be non unique for different games (e.g. `crash` and `limbo` games might have the same `round_id`).
+In additional you can use `game_session_id` along with `round_id` to make it a unique combination on your side, since `game_session_id` is unique per game (for the same user and currency).
 
 
 # Errors processing. Refund policy.
