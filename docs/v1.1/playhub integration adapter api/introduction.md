@@ -12,6 +12,8 @@ slug: playhub-integration-adapter-intro
 Playhub integration adapter (PHIA) is a service that allows you to integrate your game with Playhub platform. 
 It's located in our cluster and sends requests to your endpoints on every game action (mostly related to money change). 
 You integrate your backend with our PHIA and we take care of the rest.
+Your integration should be able to handle requests from our PHIA and respond to them in a timely manner (as quicker as possile).
+We don't use any retry mechanisms to make requests as quick as possible, so you should be able to handle requests in a timely manner and respond to them as soon as possible.
 
 # Initial setup and security
 
@@ -26,12 +28,12 @@ same `bet` request with same `tx_id` should be processed only once.
 Also please note that `round_id` might be non unique for different games (e.g. `crash` and `limbo` games might have the same `round_id`).
 In additional you can use `game_session_id` along with `round_id` to make it a unique combination on your side, since `game_session_id` is unique per game (for the same user and currency).
 
-
 # Errors processing. Refund policy.
 All error codes except 200 (OK) are considered as errors. We decline game's action in case of any error. 
 No refund will be sent in this case.
 Timeout over than 6 seconds will be considered as an error as well and refund will be issued afterwards.
-
+In error your can return any useful information to our side, later this could be useful to debug some issues.
+We don't show any errors from integrations to the end user, so you can return any error message you want.
 
 # Idempotency Requirement
 All requests from our platform to yours should be processed in an idempotent way. 

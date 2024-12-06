@@ -7,8 +7,12 @@ components:
         - details
       properties:
         message:
+          description: |
+            User readable message that can be shown to the user (or parsed on our FE side). It should be user-friendly and in English.
           type: string
         details:
+          description: |
+            Additional details about the error (maily for debug purposes). This won't be shown to the user but we can get more information about it in our logs.
           type: string
 
     BetIsAlreadyActiveError:
