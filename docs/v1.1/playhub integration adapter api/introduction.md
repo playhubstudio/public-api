@@ -7,9 +7,17 @@ hidden: false
 slug: playhub-integration-adapter-intro
 ---
 
-# Initial setup
+# General
 
-To start integration with Playhub, you need to provide us with your endpoints information. It might be single endpoint for all requests or different endpoints for different requests. We support HTTPS protocol only.
+Playhub integration adapter (PHIA) is a service that allows you to integrate your game with Playhub platform. 
+It's located in our cluster and sends requests to your endpoints on every game action (mostly related to money change). 
+You integrate your backend with our PHIA and we take care of the rest.
+
+# Initial setup and security
+
+To start integration with Playhub, you need to provide us with your endpoints information. 
+It might be single endpoint for all requests or different endpoints for different requests. We support HTTPS protocol only.
+We use request signature with default key, you can either share your signature key with us or whitelist our IP addresses and avoid signature check. 
 
 # Round, transaction and money processing.
 Every request through the Playhub Integration Adapter API contains transaction ID (`tx_id`) and round ID (`round_id`).
@@ -20,15 +28,17 @@ In additional you can use `game_session_id` along with `round_id` to make it a u
 
 
 # Errors processing. Refund policy.
-All error codes except 200 (OK) are considered as errors. Every bet request with non 200 (OK) response will be refunded.
+All error codes except 200 (OK) are considered as errors. We decline game's action in case of any error. 
+No refund will be sent in this case.
+Timeout over than 6 seconds will be considered as an error as well and refund will be issued afterwards.
+
 
 # Idempotency Requirement
+All requests from our platform to yours should be processed in an idempotent way. 
+This means that if we send the same request multiple times, the result should be the same as if we sent the request only once. 
+This is crucial to avoid any issues with your system in case of network problems or other issues.
+We use `tx_id` field to ensure idempotency.
 
-All requests from our platform to yours should be processed in an idempotent way. This means that if we send the same request multiple times, the result should be the same as if we sent the request only once. This is crucial to avoid any issues with your system in case of network problems or other issues.
-
-# Free rounds
-
-When you receive a request with `isFree` parameter in additional we send `frc_id` field which is related to free rounds configuration.
 
 # IP Addresses
 
