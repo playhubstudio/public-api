@@ -25,6 +25,8 @@ where `<server url>` is a URL to our public API (staging or production environme
 The whole request payload should be signed, in case of `GET` requests, the payload is virtual - we use query parameters to construct the JSON  
 and use this JSON for signing. Please take a look at the following examples.
 
+Before signing your JSON request should be in a compact form and sorted by keys. It's called canonical JSON.
+
 **Sign example in Go:**
 ```go
 func Sign(payload, token string) string {
