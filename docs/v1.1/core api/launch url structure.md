@@ -39,12 +39,20 @@ These parameters are crucial for the game launcher to operate:
 - **locale**: The language and region code following the ISO 639-1 standard.
 - **currency**: The currency code adhering to the ISO 4217 standard.
 
+### Disable levels
+
+To disable lavels you need to use: "?levels=false" in the launcher url
+
+Example:
+ `https://staging.fastplaynetwork.com/games/ph_hmstr_97/?levels=false`
+
 #### Example
 
 ```
 https://staging.fastplaynetwork.com/games/ph_limbo_97/
 ?locale=en-us
 &currency=USD
+&levels=false
 ```
 
 ### Notes
