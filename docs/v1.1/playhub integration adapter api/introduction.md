@@ -46,7 +46,7 @@ We use `tx_id` field to ensure idempotency.
 
 We use the following IPs to access your endpoints:
 
-- **Staging Environment**: 34.76.77.205
+- **Staging Environment**: 34.22.222.37
 - **Production Environment**: 34.140.75.241
 
 By ensuring idempotency and allowing access from these IP addresses, you can maintain the reliability and stability of the integration.
