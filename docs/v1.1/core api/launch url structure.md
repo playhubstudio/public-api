@@ -42,8 +42,8 @@ These parameters are crucial for the game launcher to operate:
 ### Optional Parameters
 #### Free rounds / Levels
 
-Multiple games have internal levels system, which can be disabled if needed. Every new levels gives a player free rounds. 
-If you haven't integrated free rounds yet, or don't want to use them, you can disable levels in the game launcher.
+Multiple games have internal levels system, which can be disabled if needed. Every new level gives a player free rounds (amount based on general configuration). 
+If you haven't integrated free rounds yet, or don't want to use internal free rounds, you can disable levels in the game launcher. This will prevent the game from showing the levels screen and will not give free rounds (internal) to the player. 
 
 To disable levels you need to use: "?levels=false" in the launcher url
 
@@ -58,6 +58,8 @@ https://staging.fastplaynetwork.com/games/ph_limbo_97/
 &currency=USD
 &levels=false
 ```
+
+By disabling levels you still can use external free rounds, which you can create with additional API requests.
 
 ### Notes
 
