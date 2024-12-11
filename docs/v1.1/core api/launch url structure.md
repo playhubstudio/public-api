@@ -7,7 +7,8 @@ hidden: false
 slug: core-launch-url-structure
 ---
 
-# Example of Launcher URL Generation for Game Launch
+You receive Launch URL from our server after you request a game launch. 
+This URL is used to launch the game in an iFrame on your website, or you can use redirection.
 
 ## URL Template
 
