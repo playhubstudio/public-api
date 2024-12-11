@@ -39,9 +39,13 @@ These parameters are crucial for the game launcher to operate:
 - **locale**: The language and region code following the ISO 639-1 standard.
 - **currency**: The currency code adhering to the ISO 4217 standard.
 
-### Disable levels
+### Optional Parameters
+#### Free rounds / Levels
 
-To disable lavels you need to use: "?levels=false" in the launcher url
+Multiple games have internal levels system, which can be disabled if needed. Every new levels gives a player free rounds. 
+If you haven't integrated free rounds yet, or don't want to use them, you can disable levels in the game launcher.
+
+To disable levels you need to use: "?levels=false" in the launcher url
 
 Example:
  `https://staging.fastplaynetwork.com/games/ph_hmstr_97/?levels=false`
