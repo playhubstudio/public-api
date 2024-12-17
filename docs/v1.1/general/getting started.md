@@ -53,9 +53,7 @@ different requests, but depends on your needs we could use a single endpoint for
 
 Additionally, if you require, we can set up whitelisting for your platform. Please share a list of IP addresses that should be whitelisted via the integration Skype chat or via email: integration@playhub.studio.
 
-From our side, we use the following IPs to call your endpoints:  
-Staging environment: 34.76.77.205  
-Production environment: 34.140.75.241
+More about whitelisting can be found in the [IP Addresses](playhub-integration-adapter-intro) section.
 
 ## Development Process
 
