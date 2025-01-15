@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Playhub Core API
-  version: 1.1.1
+  version: 1.1.2
 
 servers:
   - url: https://staging.fastplaynetwork.com/api/v1
@@ -386,7 +386,6 @@ components:
       required:
         - cid
         - gameid
-        - user
         - currency
         - locale
       properties:

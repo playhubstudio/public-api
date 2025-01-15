@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Playhub Integration Adapter API
   description: This API is used for external integrations with Playhub.
-  version: 1.1.1
+  version: 1.1.2
 
 servers:
   - url: https://your-server-base-url
