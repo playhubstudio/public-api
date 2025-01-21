@@ -1,0 +1,20 @@
+POST https://staging.fastplaynetwork.com/api/v1/game-create-new
+Content-Type: application/json
+X-Request-Sign: a684467fa0e07ce5ea0b55ff12cd9a71c15bdca57e11f1cf686f20f7065a5831
+
+{
+    "cid": "e747696d-c35e-479a-9fc7-c3fcc138489e",
+    "extcid": "1",
+    "gameid": "ph_limbo_97",
+    "sessionid": "76e74d7571b63b49ebbf7d81d6cfb34a",
+    "providerid": "playhub",
+    "returnurl": "https://test.intechlab.org/api/exit?url=%2Fgame%2Fcasino&local=1",
+    "currency": "EUR",
+    "locale": "en_GB",
+    "demo": false,
+    "levels": null,
+    "player_id": null,
+    "user": {
+      "id": "368"
+    }
+  }
