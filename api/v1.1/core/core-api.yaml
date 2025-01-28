@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Playhub Core API
-  version: 1.1.2
+  version: 1.1.3
 
 servers:
   - url: https://staging.fastplaynetwork.com/api/v1
@@ -379,6 +379,57 @@ paths:
               schema:
                 $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
 
+  /games:
+    get:
+      tags:
+        - Game
+      summary: Get Games Information
+      description: Get information about supported games
+      parameters:
+        - name: X-REQUEST-SIGN
+          in: header
+          required: true
+          description: Request signature (read more in the Authentication section)
+          schema:
+            type: string
+
+        - name: cid
+          in: query
+          required: true
+          description: Client's ID
+          x-go-name: CID
+          schema:
+            type: string
+            format: uuid
+
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GamesResponse"
+
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+        401:
+          description: Wrong signature or API key
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
+        500:
+          description: Server error occurred
+          content:
+            application/json:
+              schema:
+                $ref: "../common-components.yaml#/components/schemas/ErrorResponse"
+
 components:
   schemas:
     CreateNewGameRequest:
@@ -446,6 +497,31 @@ components:
           type: string
           format: uuid
 
+    GameInfo:
+      type: object
+      required:
+        - title
+        - id
+        - locales
+        - thumbnail
+        - free_spins
+      properties:
+        title:
+          description: Game's title in English
+          type: string
+        id:
+          description: Game's ID (internal)
+          type: string
+        locales:
+          description: List of supported locales in English, delimited by comma
+          type: string
+        thumbnail:
+          description: URL to the game's thumbnail
+          type: string
+        free_spins:
+          description: If game supports free spins
+          type: boolean
+
     CurrencyInfo:
       type: object
       required:
@@ -486,6 +562,11 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/CurrencyInfo"
+
+    GamesResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/GameInfo"
 
     FreeRoundsResponse:
       type: object

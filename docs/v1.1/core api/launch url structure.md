@@ -2,12 +2,12 @@
 title: Launch URL
 excerpt: Launch URL structure and options.
 category: 671f27ffff7f7a00128379aa
-order: -1
+order: 1
 hidden: false
 slug: core-launch-url-structure
 ---
 
-You receive Launch URL from our server after you request a game launch. 
+You receive Launch URL from our server after you request a game launch.
 This URL is used to launch the game in an iFrame on your website, or you can use redirection.
 
 ## URL Template
@@ -27,6 +27,7 @@ https://<game_provider_base_url>?<query_parameters>
 - **Production Environment**: `https://prod.fastplaynetwork.com`
 
 ## Launcher URL:
+
 - **Staging Environment**: `https://staging.fastplaynetwork.com/games/<game_id>/?`
 - **Production Environment**: `https://prod.fastplaynetwork.com/games/<game_id>/?`
 
@@ -41,15 +42,16 @@ These parameters are crucial for the game launcher to operate:
 - **currency**: The currency code adhering to the ISO 4217 standard.
 
 ### Optional Parameters
+
 #### Free rounds / Levels
 
-Multiple games have internal levels system, which can be disabled if needed. Every new level gives a player free rounds (amount based on general configuration). 
-If you haven't integrated free rounds yet, or don't want to use internal free rounds, you can disable levels in the game launcher. This will prevent the game from showing the levels screen and will not give free rounds (internal) to the player. 
+Multiple games have internal levels system, which can be disabled if needed. Every new level gives a player free rounds (amount based on general configuration).
+If you haven't integrated free rounds yet, or don't want to use internal free rounds, you can disable levels in the game launcher. This will prevent the game from showing the levels screen and will not give free rounds (internal) to the player.
 
 To disable levels you need to use: "?levels=false" in the launcher url
 
 Example:
- `https://staging.fastplaynetwork.com/games/ph_hmstr_97/?levels=false`
+`https://staging.fastplaynetwork.com/games/ph_hmstr_97/?levels=false`
 
 #### Example
 
