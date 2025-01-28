@@ -522,6 +522,12 @@ components:
           description: If game supports free spins
           type: boolean
 
+    GamesResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/GameInfo"
+      
+
     CurrencyInfo:
       type: object
       required:
@@ -563,10 +569,6 @@ components:
       items:
         $ref: "#/components/schemas/CurrencyInfo"
 
-    GamesResponse:
-      type: array
-      items:
-        $ref: "#/components/schemas/GameInfo"
 
     FreeRoundsResponse:
       type: object
