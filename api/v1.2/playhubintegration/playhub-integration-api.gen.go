@@ -19,7 +19,7 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/oapi-codegen/runtime"
 	openapi_types "github.com/oapi-codegen/runtime/types"
-	externalRef0 "github.com/playhubstudio/public-api/api/v1.2"
+	externalRef0 "github.com/playhubstudio/public-api/api/v1.1"
 )
 
 // Defines values for BalanceRequestAction.
@@ -1097,26 +1097,26 @@ var swaggerSpec = []string{
 	"RIRlZUttcY3PV8tviu6qhfNpwtduYRPmZ5hVKt2qBhpvckUGw9BqcjVjGwDXRuRXD6D+yYicFILQU7Zx",
 	"4VGtgj0fFwO1UPsxNMolrA/Z+H1bt117bsZdWzdTKi3ydFE0O2r/ViEEwB5jd3hp9P6E5nnJYp0Efaym",
 	"npPKaqGek8qaCHaLYkvM9mj+hWW3SG8XQm2V22qhVoitFmqV1Whg19/v+vudCBBD/UwK8NQGvxYqht6F",
-	"UD9Rgx9Y6X/e4Hs2/olVkcw/f4NfC7VFBeSluLo5iF9dJbootOovP75enRijzcMBSdFxIe19YI7SVNBP",
-	"LqGZA3yqK+cxQjIKewUXjVD4zUNZGb/x/QazWquez1c707UCp/3LFGaYVg5qhIQryNFBoQ0FPFQviXJY",
-	"S3iZpEhInTesfC+yBVrL8w059YUWMshTPpVUo35a6Ptp3Y1+7WkDJTfWq6Bf+dcTnwb7MYy75wWa3c+M",
-	"QJXKuddBoeBE5VLY2UZH18Laeh0tQnA/sPQOgbKpXISFo9MxpaUnVgpCm1xAhJwbD6QFoteWlSkjnXA+",
-	"H1uiHi8nw1HKSyqxo9Mxi9gNGhuWO4gP4tf+1Fai4qVgI/Y6HsavWcRK7mY+fQad2i613dAHfUC3KO6G",
-	"ZwnFGE4lEiUq7UTSBAhVWmqhHJB9aG0v1Xsp2CKjWgVbBT6AqtmyL2AKL1kIEaHE9xsdpwSAtu54UVwl",
-	"N7xAh8ay0e/rnjftJViRK+4qg7BHedWmrd/KUeVmqJxIApQt5TMKIRuxGfIUDYsYtZtsxP7VPzv555eT",
-	"88/98/GHj6ybHM5UGDVXJoTieiJdhslo3bFO5zQj0cphaD09LQYfBn/Y0PouTf2/wYyN2P8NlgwxaO5m",
-	"BmsXM3erGUtO+YHAJD7kr4bD7a/eMJVffu2zwG+Ugm+2uOiTeXODN8c8bVut4NbBi3DrwmiVLxM1uPbm",
-	"RbjWZJavUTSDpscg7aW2JqOmgtw9fCEBPkdzgyZonadvWxUFN/NVJiNG5TmRRnvJxi5p8oDargep8Bid",
-	"o1Yh4VJOeXLdalDT1oe+4+QGzRycKBB4UKdS8gQt8NCBwkTVCBZVCrxNxWBI2CWBkjTVXLhFg8OVrYl1",
-	"YaImapV6yZ37Fpaixy18rURyTT9Kba0gYXUaCn6NMFEAlrixlHxOwN2WSPpIrZz1IeZZ5u8EY1r5U5BX",
-	"393WCI62Omu6LNrIa7/zhswPiE+1F1mH5oZLb6LtpWtqnBMUN34j8Go4hL1Pv+1DS1agDRw2Fqw3q0P7",
-	"UQspA4CZllLXFJLmq8jyFPUEdUK3fWXyXftOlTqXtz9akTo3FTs12qnRi1WjM8yFpbY9cMZCjtA1UtTc",
-	"wjyoRuFb9uNidNEoTfvR+N4Uf15vvmwco4PD4bA5J5LuBM6NgEurYaLaufUMVZC2hKRThgubnBfoCf7I",
-	"H/hbwtYGuJo3Rle0wvO4v8RxZk4kXiknZFcXSBNapngSpzf73Datn7UXYjtmX72V/MHkvnZ9s+P3Hb+/",
-	"fH5fkEdL8c1AYPlaqIcp/sIz7l86bNRC2YhIN1ykoEox9UxHXMzbT/+BiD2ZN9+thYXh/nefTi5o0Lsj",
-	"7LJ5j7d/aPkLR5b/Wo4ayibw84Dm9wsU4b9tdbrwVwg7aercKP9gXerenuxEaSdKL1+UAme0ikT/XXpL",
-	"1r+7iULC1VowPSWWq4xkEaO/IzZzrrSjwYAm9cOkPk3q02Oq99s+8U3h7xkCk4Q11lhkpCopo2+RF7u7",
-	"vLv7TwAAAP//kotQv60wAAA=",
+	"UD9Rgx9Y6X/e4Hs2/olVkcw/f4NfC7VFBeSluLo5iA+uEl0UWvWXH1+vTozR5uGApOi4kPY+MEdpKugn",
+	"l9DMAT7VlfMYIRmFvYKLRij85qGsjN/4foNZrVXP56ud6VqB0/5lCjNMKwc1QsIV5Oig0IYCHqqXRDms",
+	"JbxMUiSkzhtWvhfZAq3l+Yac+kILGeQpn0qqUT8t9P207ka/9rSBkhvrVdCv/OuJT4P9GMbd8wLN7mdG",
+	"oErl3OugUHCicinsbKOja2FtvY4WIbgfWHqHQNlULsLC0emY0tITKwWhTS4gQs6NB9IC0WvLypSRTjif",
+	"jy1Rj5eT4SjlJZXY0emYRewGjQ3LHcQH8Wt/aitR8VKwEXsdD+PXLGIldzOfPoNObZfabuiDPqBbFHfD",
+	"s4RiDKcSiRKVdiJpAoQqLbVQDsg+tLaX6r0UbJFRrYKtAh9A1WzZFzCFlyyEiFDi+42OUwJAW3e8KK6S",
+	"G16gQ2PZ6Pd1z5v2EqzIFXeVQdijvGrT1m/lqHIzVE4kAcqW8hmFkI3YDHmKhkWM2k02Yv/qn53888vJ",
+	"+ef++fjDR9ZNDmcqjJorE0JxPZEuw2S07linc5qRaOUwtJ6eFoMPgz9saH2Xpv7fYMZG7P8GS4YYNHcz",
+	"g7WLmbvVjCWn/EBgEh/yV8Ph9ldvmMovv/ZZ4DdKwTdbXPTJvLnBm2Oetq1WcOvgRbh1YbTKl4kaXHvz",
+	"IlxrMsvXKJpB02OQ9lJbk1FTQe4evpAAn6O5QRO0ztO3rYqCm/kqkxGj8pxIo71kY5c0eUBt14NUeIzO",
+	"UauQcCmnPLluNahp60PfcXKDZg5OFAg8qFMpeYIWeOhAYaJqBIsqBd6mYjAk7JJASZpqLtyiweHK1sS6",
+	"MFETtUq95M59C0vR4xa+ViK5ph+ltlaQsDoNBb9GmCgAS9xYSj4n4G5LJH2kVs76EPMs83eCMa38Kcir",
+	"725rBEdbnTVdFm3ktd95Q+YHxKfai6xDc8OlN9H20jU1zgmKG78ReDUcwt6n3/ahJSvQBg4bC9ab1aH9",
+	"qIWUAcBMS6lrCknzVWR5inqCOqHbvjL5rn2nSp3L2x+tSJ2bip0a7dToxarRGebCUtseOGMhR+gaKWpu",
+	"YR5Uo/At+3ExumiUpv1ofG+KP683XzaO0cHhcNicE0l3AudGwKXVMFHt3HqGKkhbQtIpw4VNzgv0BH/k",
+	"D/wtYWsDXM0boyta4XncX+I4MycSr5QTsqsLpAktUzyJ05t9bpvWz9oLsR2zr95K/mByX7u+2fH7jt9f",
+	"Pr8vyKOl+GYgsHwt1MMUf+EZ9y8dNmqhbESkGy5SUKWYeqYjLubtp/9AxJ7Mm+/WwsJw/7tPJxc06N0R",
+	"dtm8x9s/tPyFI8t/LUcNZRP4eUDz+wWK8N+2Ol34K4SdNHVulH+wLnVvT3aitBOlly9KgTNaRaL/Lr0l",
+	"69/dRCHhai2YnhLLVUayiNHfEZs5V9rRYECT+mFSnyb16THV+22f+Kbw9wyBScIaaywyUpWU0bfIi91d",
+	"3t39JwAA///LqfB+rTAAAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file

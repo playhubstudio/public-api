@@ -21,7 +21,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/oapi-codegen/runtime"
 	openapi_types "github.com/oapi-codegen/runtime/types"
-	externalRef0 "github.com/playhubstudio/public-api/api/v1.1"
+	externalRef0 "github.com/playhubstudio/public-api/api/v1.2"
 )
 
 // Defines values for CreateNewGameRequestProviderid.
@@ -204,6 +204,27 @@ type FreeRoundsResponse struct {
 	ValidUntil *time.Time `json:"valid_until,omitempty"`
 }
 
+// GameInfo defines model for GameInfo.
+type GameInfo struct {
+	// FreeSpins If game supports free spins
+	FreeSpins bool `json:"free_spins"`
+
+	// Id Game's ID (internal)
+	Id string `json:"id"`
+
+	// Locales List of supported locales in English, delimited by comma
+	Locales string `json:"locales"`
+
+	// Thumbnail URL to the game's thumbnail
+	Thumbnail string `json:"thumbnail"`
+
+	// Title Game's title in English
+	Title string `json:"title"`
+}
+
+// GamesResponse defines model for GamesResponse.
+type GamesResponse = []GameInfo
+
 // GetGameRoundHistoryRequest defines model for GetGameRoundHistoryRequest.
 type GetGameRoundHistoryRequest struct {
 	// GameID Game's ID. See the list of supported games in `Game IDs` section.
@@ -312,6 +333,15 @@ type PostGameCreateNewParams struct {
 
 // PostGameRoundHistoryParams defines parameters for PostGameRoundHistory.
 type PostGameRoundHistoryParams struct {
+	// XREQUESTSIGN Request signature (read more in the Authentication section)
+	XREQUESTSIGN string `json:"X-REQUEST-SIGN"`
+}
+
+// GetGamesParams defines parameters for GetGames.
+type GetGamesParams struct {
+	// CID Client's ID
+	CID openapi_types.UUID `form:"cid" json:"cid"`
+
 	// XREQUESTSIGN Request signature (read more in the Authentication section)
 	XREQUESTSIGN string `json:"X-REQUEST-SIGN"`
 }
@@ -434,6 +464,9 @@ type ClientInterface interface {
 	PostGameRoundHistoryWithBody(ctx context.Context, params *PostGameRoundHistoryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	PostGameRoundHistory(ctx context.Context, params *PostGameRoundHistoryParams, body PostGameRoundHistoryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetGames request
+	GetGames(ctx context.Context, params *GetGamesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) GetCurrencies(ctx context.Context, params *GetCurrenciesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -570,6 +603,18 @@ func (c *Client) PostGameRoundHistoryWithBody(ctx context.Context, params *PostG
 
 func (c *Client) PostGameRoundHistory(ctx context.Context, params *PostGameRoundHistoryParams, body PostGameRoundHistoryJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewPostGameRoundHistoryRequest(c.Server, params, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) GetGames(ctx context.Context, params *GetGamesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetGamesRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -993,6 +1038,64 @@ func NewPostGameRoundHistoryRequestWithBody(server string, params *PostGameRound
 	return req, nil
 }
 
+// NewGetGamesRequest generates requests for GetGames
+func NewGetGamesRequest(server string, params *GetGamesParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/games")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		queryValues := queryURL.Query()
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "cid", runtime.ParamLocationQuery, params.CID); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+		queryURL.RawQuery = queryValues.Encode()
+	}
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+
+		var headerParam0 string
+
+		headerParam0, err = runtime.StyleParamWithLocation("simple", false, "X-REQUEST-SIGN", runtime.ParamLocationHeader, params.XREQUESTSIGN)
+		if err != nil {
+			return nil, err
+		}
+
+		req.Header.Set("X-REQUEST-SIGN", headerParam0)
+
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -1066,6 +1169,9 @@ type ClientWithResponsesInterface interface {
 	PostGameRoundHistoryWithBodyWithResponse(ctx context.Context, params *PostGameRoundHistoryParams, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*PostGameRoundHistoryResponse, error)
 
 	PostGameRoundHistoryWithResponse(ctx context.Context, params *PostGameRoundHistoryParams, body PostGameRoundHistoryJSONRequestBody, reqEditors ...RequestEditorFn) (*PostGameRoundHistoryResponse, error)
+
+	// GetGamesWithResponse request
+	GetGamesWithResponse(ctx context.Context, params *GetGamesParams, reqEditors ...RequestEditorFn) (*GetGamesResponse, error)
 }
 
 type GetCurrenciesResponse struct {
@@ -1243,6 +1349,31 @@ func (r PostGameRoundHistoryResponse) StatusCode() int {
 	return 0
 }
 
+type GetGamesResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *GamesResponse
+	JSON400      *externalRef0.ErrorResponse
+	JSON401      *externalRef0.ErrorResponse
+	JSON500      *externalRef0.ErrorResponse
+}
+
+// Status returns HTTPResponse.Status
+func (r GetGamesResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetGamesResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 // GetCurrenciesWithResponse request returning *GetCurrenciesResponse
 func (c *ClientWithResponses) GetCurrenciesWithResponse(ctx context.Context, params *GetCurrenciesParams, reqEditors ...RequestEditorFn) (*GetCurrenciesResponse, error) {
 	rsp, err := c.GetCurrencies(ctx, params, reqEditors...)
@@ -1344,6 +1475,15 @@ func (c *ClientWithResponses) PostGameRoundHistoryWithResponse(ctx context.Conte
 		return nil, err
 	}
 	return ParsePostGameRoundHistoryResponse(rsp)
+}
+
+// GetGamesWithResponse request returning *GetGamesResponse
+func (c *ClientWithResponses) GetGamesWithResponse(ctx context.Context, params *GetGamesParams, reqEditors ...RequestEditorFn) (*GetGamesResponse, error) {
+	rsp, err := c.GetGames(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetGamesResponse(rsp)
 }
 
 // ParseGetCurrenciesResponse parses an HTTP response from a GetCurrenciesWithResponse call
@@ -1675,6 +1815,53 @@ func ParsePostGameRoundHistoryResponse(rsp *http.Response) (*PostGameRoundHistor
 	return response, nil
 }
 
+// ParseGetGamesResponse parses an HTTP response from a GetGamesWithResponse call
+func ParseGetGamesResponse(rsp *http.Response) (*GetGamesResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetGamesResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest GamesResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest externalRef0.ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 401:
+		var dest externalRef0.ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON401 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 500:
+		var dest externalRef0.ErrorResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON500 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// Get Currencies Information
@@ -1698,6 +1885,9 @@ type ServerInterface interface {
 	// Get Game Round History
 	// (POST /game-round-history)
 	PostGameRoundHistory(ctx echo.Context, params PostGameRoundHistoryParams) error
+	// Get Games Information
+	// (GET /games)
+	GetGames(ctx echo.Context, params GetGamesParams) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -1948,6 +2138,43 @@ func (w *ServerInterfaceWrapper) PostGameRoundHistory(ctx echo.Context) error {
 	return err
 }
 
+// GetGames converts echo context to params.
+func (w *ServerInterfaceWrapper) GetGames(ctx echo.Context) error {
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetGamesParams
+	// ------------- Required query parameter "cid" -------------
+
+	err = runtime.BindQueryParameter("form", true, true, "cid", ctx.QueryParams(), &params.CID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter cid: %s", err))
+	}
+
+	headers := ctx.Request().Header
+	// ------------- Required header parameter "X-REQUEST-SIGN" -------------
+	if valueList, found := headers[http.CanonicalHeaderKey("X-REQUEST-SIGN")]; found {
+		var XREQUESTSIGN string
+		n := len(valueList)
+		if n != 1 {
+			return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Expected one value for X-REQUEST-SIGN, got %d", n))
+		}
+
+		err = runtime.BindStyledParameterWithOptions("simple", "X-REQUEST-SIGN", valueList[0], &XREQUESTSIGN, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationHeader, Explode: false, Required: true})
+		if err != nil {
+			return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid format for parameter X-REQUEST-SIGN: %s", err))
+		}
+
+		params.XREQUESTSIGN = XREQUESTSIGN
+	} else {
+		return echo.NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Header parameter X-REQUEST-SIGN is required, but not found"))
+	}
+
+	// Invoke the callback with all the unmarshaled arguments
+	err = w.Handler.GetGames(ctx, params)
+	return err
+}
+
 // This is a simple interface which specifies echo.Route addition functions which
 // are present on both echo.Echo and echo.Group, since we want to allow using
 // either of them for path registration
@@ -1983,62 +2210,66 @@ func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL 
 	router.POST(baseURL+"/free-rounds/cancel", wrapper.PostFreeRoundsCancel)
 	router.POST(baseURL+"/game-create-new", wrapper.PostGameCreateNew)
 	router.POST(baseURL+"/game-round-history", wrapper.PostGameRoundHistory)
+	router.GET(baseURL+"/games", wrapper.GetGames)
 
 }
 
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"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",
+	"H4sIAAAAAAAC/+xbf2/bONL+KgO9L9AWcJyk7fWu+a/bZLMGim6v2WAPtwlcWhrb3Eqkyh9xjEW/+2FI",
+	"ypIsWnFap5ccAhTYjTUih8OZZ54ZUn8lqSxKKVAYnRz9leh0jgVz//uWiRTznxXiR2lFpj/iF4va0KNS",
+	"yRKV4egEU57RfzLUqeKl4VIkR8nbnKMwTzSMjuEpFwaVYPmzZJBMpSqYSY4Sa3mWDBKzLDE5SrRRXMyS",
+	"r4MEr73wODYsqQPK6eNGroSfDeFcYwZMA8+wKKVBkS7hMy6H8KtAkFPgGUgFjdGhsNrABKFU8opnmA0v",
+	"REyhbfRYrXB3etxgqK+DROEXyxVmydEfbhMuV0Jy8iemhpTv7qIupdDY3cZvtfvIAMsXbKlX+oMUkCpk",
+	"BkF5pxl+v11vbREn0lxU1DxOzS2cfIJmnHOBXZXf22KCinZ2ggZIBlIppnxmFWYwlQrMnGuYsQL3g4VU",
+	"azVcmBfPk0FSsGte2CI5ev16kBRc+D8OV1qTLWaoSO0dh1xqlSI/jYwZnkAqMwQuYHT268vnh3/vDdyo",
+	"difhKbTUJKsAm80UzpiRiiIjZZoL+eyHQMMZTT86hpQJCkBLckZWzjttjChFvgQpUtwAErSQqFqnrEC3",
+	"2NhblT9E3/wQHsLoeAijKSylfaJISS5m8OlDzpZzO4EReYVi9A68yVhpUH2CkmkNn0ov8gnmqDbp/cUy",
+	"YbhZ9vl1ww7f67hWu8Xq7nTvuDY0GSnt1qxbW8inIGyeg5mjgJQVJeMzAVwDu2I8Z5McXaixPA8jOFW5",
+	"wcLN1Vl3+IEpxZb09xXLeTaeKll0VTszTBnIyCUWNH3TLyaYSnLhSoshRQj849XB4RB+o7jXc2nzjLyL",
+	"C5haY91WjCgAhDRQSq05aV+7nXNkD0eNlQpaOm2sqZwBFkyYxnuslr5IaCUg5OIiGVyIPynBsCwDBlNc",
+	"gMZU0uBGujF99BswvMAhOEQkZyqVTFFrsrFeinSupJBWD0BLKNhnBG0VgpkzA1aQl86RXS0hlyyDCyGt",
+	"Ao3qChWkbv3VaA4LQ1bwO9ZUyTspXrOizGl7nh88P9w7oH+/HRwcuX//bnog7cke6R1zbb+lVhieR+BI",
+	"ZP07akVjT99We6jR2BJyZlA1dnp3Wkeyehv21mC2Bp42mDQwvRHjgzqNtTx+u8y4a+LgwoM3aEPw8Z1x",
+	"hrukDO9xQci+C1JMFOpJwwyTJVgNTGRknCol8QyF4dOlj1g3zlY0cVfJPcNCdkc4xkJCITN0mGSUxYFT",
+	"0KX1Bc9zipmcWZHO/f5m1QvwtEAmCAMhZXk+YelnvXqDfvE0cumAhGc4gAtBJlm4LA30sxtrwnJiuIFn",
+	"+ZmfOW2mLNc3qaOQ5V7/ZnacSJkjE4Fx7ITN1N7uVjQ6HsBiztM5zDEv3Y+tTbZ6CL/7lcKF4IZ0pdRW",
+	"m8pIeqmHjPRykSGcITrT5CHtaluWUhnMnLE0Tfjp1LMj/YngmYbYMF0uU5ZHmPE793vTu169eL132EeE",
+	"fhQPQkEU5Y8kPGoEeq2TQmOVsCqSPT66R3D+8V1sMRq15lJs5zdnXrj2Hx4W0vaflvvU72zpJnUCK7jW",
+	"oSxhPoJo0g0bS2yN1vD/CqfJUfJ/+3WzYD90CvZZycdXh8Pn41QWhRR7tcj4nF6Pp7Tgoa00FdxoC8zd",
+	"lIlcLgzWD9noRnh074RN7s8OK8lBZ6Kozn5lHFupc8VI+2xaAfNITGWMrLaed1OPzPAmsO9F+pQXLB+X",
+	"OUtR99UFQRKCZIfvD5LrvZncq3999dLlcD1O1bI0kXwyCgSx8gritE60+mGVZ3wh0BamamBdfgOucz2e",
+	"KuZAjeXjqVTbZ0cXOx68O9PXYzpF64qlI0ncvyG9ofOkx1dcGcvyrUwVZGF7Y3Xe2GAuwYo+l3KPY0C4",
+	"LCYy73kxCNxIg8mjgxarUTue2vSslu1i0bkNsf3f7fmEyPTbmrwdHe+SKOZoMBszE6GL0YJrVbUumIbw",
+	"+lr4tAr+1PArvJPq65s7TDcY+OTaeBN/Q5eoPRLJ+aF23D1tT+OneOwNseWaYYjSjI71HXWM7mXvY+fa",
+	"3VR0D5L1zsb39jJc1ES5Ei1+rEsuIl43mvrCMZRG2lvKC0c5RV9ct9F5QwnV4/p1fRZECYZPxCznej4g",
+	"1OQFN755QEScxSYxc1tMBIu5xPnHd1U7cOZVroVjI3ETK/jCat3Thn43uoAfbuBdoTJFU99Bc6M27fDt",
+	"efbKLyIc+xSNKzYoMH7h2ki13NjsuRnWd1hwb0oILoSjWrg1kA961kpp1uGga4FIfypJqoXpIRQ2+pZJ",
+	"w03jdQlQ3lP/EpB6lWSljOv90Rg3LtqjcLxAc2qubFGrEvWa2B73sUFWSCtMNGmkTM/H0ppAfLrPHVMb",
+	"z5med5+v8TEn+gtJrtGyePV6m4q36z2hmeA3rmRLt4bN6wwShc0NL3PuGwSR3om2eXyApp9+o3v5IaKd",
+	"GQKyxRxVaPo5SZj7vQV39CAyVB4oncRT3ozF8OuztdaqiqMgUzO80RTOAUObskdACqt7xNZcveHg6y7Q",
+	"drVB029bmbSr/Wrb1v0gtutrC4suox0VsQg8L7Ptzt/v9yUToqClQo3C3Jf7Jt+j0o3muw1V/1Fntw/+",
+	"oG+7+HiY13fu5iiup/d8opRUm62VoWE8j/jvmyzjvicHQQbYRFrj2AnSoPC0YDxfOpfNcGJnUFpVSo26",
+	"OuVZSPHERZWey4WoeDXFDEysgQW6+yYzNFBIRUTZm4ZLEebynXxpFeRypjfARIFas1mEhTtqpZBlLrKC",
+	"mD+pD/dcuno9lQpKprTffZr55xN37uY9pL7EQNJ7U8VRZPnSH1KueH5U0bV9rbQerLbglht7Hs4k1nve",
+	"VhgVa135B6uuN7w4fPUqfgY15UqbqtO5lbuTLk/WIipa3bGegQVPP2942I2JrrFIiIfaNpRlSXUm9pbc",
+	"682HEVXIqLRX+nB4OHxBE8sSBSt5cpS8GB4MX7gsb+bOnPvp6vDC1TcYaeadooFRx3VrKtUYws3lz+ZG",
+	"mX/1bfNpyRQr0KDSydEf3bM2f1lE85lgxiqEp+TcVew4H35jKbcYnnpVQvVEe8FpiDmyzFGWQCX/tffx",
+	"5J/nJ2e/7Z2NTt8nTSu7M+xwDTa6Iz0cpJrui0W1rGfz3YzNU9yYbTu92kvH1By0uf15fnDgg0AY9LSd",
+	"lWUerLH/pyZF/2rMuMXZU/PYyvlYe9XyMyn2cofzbo3lEW1+YlmVqrxah/dCrd+VFLOG30pFwUjkjLT8",
+	"2z0x3pm/puVzm0xd2GYOe7QtCkag6mK9doxm2LtCYkZxuzolSC7p5X2iWnueC/RiSPQogLdm6KBHTYge",
+	"0ePW6DHoY22rHVirMtYriFjtsGEFTq1vVPh2+jZo7Xfoi9dmvKZzr47hdOcuQTlSADyC8l2A8suDl/dC",
+	"ywBbmIGKObu7PUC/PcRE0rjf3MgezV8vvw6SUupIwvAXgUDgIpo3Ornig9QPNllcemHU5ieZLXdH8DZ8",
+	"8vK1XW6Qdl/vkmduul/cA2wPA0Fe3wsto0mS5eTPS8Brro1+aODxtvN9RB9+2Ah8+HaaXz4Xsy0xxD5C",
+	"SHujN3XtfzCEbGyOPngIeXl/IeTBUo8Q+9ugx1r5up+6j2hd1zHOStzz28JKi5r4IR7RhZjBhg/PfzRB",
+	"2fTl9CO6PKJLl5t4CNgWXWaswD1/yLYncNEDLXXB4z7U8CdMBZq5bH0fpnDGtUEFzMm6qzzVZyLhRCd8",
+	"j8lE5s6eGKxd+hoCXIi134CMz7jQbgT3S/h+SvnTni6m0dSr7zUeAW1V6qx9MfhfKbfWv6B54FD2AIuX",
+	"9yE4G+jgYvVdiKomPjhw3AuXlzZDxCmayGWnHqTwIccgY4a5Y+zY23Ahjul5ykQFAjBDgYrlQdRfFnJ4",
+	"wupTc6vycAGrOj8Ph845MiWqGyZx2GhexHtEDqb3ey6h/mD86LsqGetftu7dkaM9EqRb94BbNnzQLV8H",
+	"cX49dXi38K9CuRr++k8Nec/NA/925NjwNDx4PDG8P/cN2jf3H0+1Hq8aeLjYdMvAkadLN7gvaGIxfGbY",
+	"DEPBkwzc/e2jZG5MqY/297VhMy5mwynTpszZUqBZSPV5mMqCVrd/dRg5c/6gZGbTEO3RYUsls94xL7/+",
+	"JwAA//+itBPWbk8AAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
