@@ -40,8 +40,8 @@ publish-docs:
 	# cd api/v1.1/playhubintegration && rdme openapi playhub-integration-api.yaml --version=v1.1 --key=$(PLAYHUB_README_API_KEY) --id=671f277f38a4f0001eebd066 --update
 	# cd docs/v1.1 && rdme docs . --version=v1.1 --key=$(PLAYHUB_README_API_KEY) 
 
-	cd $(V12_API_PATH)/core && rdme openapi core-api.yaml --version=v1.2 --key=$(PLAYHUB_README_API_KEY)  --id=6798935292ae28006f8a0d0c --update
-	cd $(V12_API_PATH)/playhubintegration && rdme openapi playhub-integration-api.yaml --version=v1.2 --key=$(PLAYHUB_README_API_KEY) --id=6798935bc7a640001033df17 --update
+	cd $(V12_API_PATH)/core && rdme openapi core-api.yaml --version=v1.2 --key=$(PLAYHUB_README_API_KEY)  --id=67989aa203e47000307149fe --update
+	cd $(V12_API_PATH)/playhubintegration && rdme openapi playhub-integration-api.yaml --version=v1.2 --key=$(PLAYHUB_README_API_KEY) --id=67989aabc6cdcd005bcfb973 --update
 	cd docs/v1.2 && rdme docs . --version=v1.2 --key=$(PLAYHUB_README_API_KEY) 
 
 .PHONY:lint
