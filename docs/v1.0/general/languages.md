@@ -50,6 +50,8 @@ We support languages based on the ISO 639-1 standard. The following locales are 
 
 ## Asia
 
+- **Hindi (India)**: hi_IN
+- **Bengali (Bangladesh)**: bn_BD
 - **Indonesian (Indonesia)**: id_ID
 - **Japanese (Japan)**: ja_JP
 - **Khmer (Cambodia)**: km_KH
