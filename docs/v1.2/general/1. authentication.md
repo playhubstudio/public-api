@@ -33,6 +33,7 @@ Before signing your JSON request should be in a compact form and sorted by keys.
 **Sign example in Go:**
 
 ```go
+// Sign calculates signature for the payload using the token. Payload here is your stringified canonical JSON.
 func Sign(payload, token string) string {
 	hash := hmac.New(sha256.New, []byte(token))
 	hash.Write([]byte(payload))
