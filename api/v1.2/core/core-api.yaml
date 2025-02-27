@@ -392,7 +392,6 @@ paths:
           description: Request signature (read more in the Authentication section)
           schema:
             type: string
-
         - name: cid
           in: query
           required: true
@@ -401,6 +400,15 @@ paths:
           schema:
             type: string
             format: uuid
+        - name: thumbnail_shape
+          in: query
+          required: false
+          description: Thumbnail shape (portrait or square). Default value is square.
+          schema:
+            type: string
+            enum:
+              - portrait
+              - square
 
       responses:
         200:
