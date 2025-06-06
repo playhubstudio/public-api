@@ -81,7 +81,8 @@ paths:
 
         On our side we try this request 3 times with 1 second interval.
 
-        In case we receive not 200 (OK) response or 5 seconds timeout we will send following refund request.
+        In case we receive 500 response or 5 seconds timeout we will send following refund request.
+        In case of any other error we mark this bet as failed and do not retry it.
         Please notice that endpoint path /bet could be different if you supplied us with your own path.
       parameters:
         - name: X-REQUEST-SIGN
