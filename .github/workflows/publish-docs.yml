@@ -25,7 +25,7 @@ jobs:
           sudo apt-get install make -y
 
       - name: Install rdme
-        run: npm install -g rdme
+        run: npm install -g rdme@9
         
       - name: Publish docs
         run: make publish-docs
